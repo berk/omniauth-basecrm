@@ -22,25 +22,19 @@ describe OmniAuth::Strategies::BaseCrm do
 
   describe '#client' do
     it 'has correct site' do
-      subject.client.site.should eq('https://gateway.translationexchange.com')
+      subject.client.site.should eq('https://api.getbase.com')
     end
 
     it 'has correct authorize url' do
-      subject.client.options[:authorize_url].should eq('/oauth/authorize')
+      subject.client.options[:authorize_url].should eq('/oauth2/authorize')
     end
 
     it 'has correct token url' do
-      subject.client.options[:token_url].should eq('/oauth/token')
+      subject.client.options[:token_url].should eq('/oauth2/token')
     end
   end
 
   describe '#authorize_params' do
-    it 'includes display parameter from request when present' do
-      @request.stub(:params) { { 'display' => 'mobile' } }
-      subject.authorize_params.should be_a(Hash)
-      subject.authorize_params[:display].should eq('mobile')
-    end
-
     it 'includes state parameter from request when present' do
       @request.stub(:params) { { 'state' => 'some_state' } }
       subject.authorize_params.should be_a(Hash)
@@ -60,7 +54,7 @@ describe OmniAuth::Strategies::BaseCrm do
   
   describe '#info' do
     before :each do
-      @raw_info ||= { 'first_name' => 'Alex' }
+      @raw_info ||= { 'name' => 'Alex' }
       subject.stub(:raw_info) { @raw_info }
     end
     
@@ -68,20 +62,11 @@ describe OmniAuth::Strategies::BaseCrm do
       it 'has no email key' do
         subject.info.should_not have_key('email')
       end
-    
-      it 'has no last name key' do
-        subject.info.should_not have_key('last_name')
-      end
     end
     
     context 'when data is present in raw info' do
       it 'returns first name' do
-        subject.info['first_name'].should eq('Alex')
-      end
-    
-      it 'returns the email' do
-        @raw_info['email'] = 'fred@smith.com'
-        subject.info['email'].should eq('fred@smith.com')
+        subject.info['name'].should eq('Alex')
       end
     end
   end
@@ -92,14 +77,14 @@ describe OmniAuth::Strategies::BaseCrm do
       subject.stub(:access_token) { @access_token }
     end
     
-    it 'performs a GET to https://api.translationexchange.com/v1/users/me' do
+    it 'performs a GET to /v2/accounts/self' do
       @access_token.stub(:get) { double('OAuth2::Response').as_null_object }
-      @access_token.should_receive(:get).with('/v1/users/me')
+      @access_token.should_receive(:get).with('/v2/accounts/self')
       subject.raw_info
     end
     
     it 'returns a Hash' do
-      @access_token.stub(:get).with('/v1/users/me') do
+      @access_token.stub(:get).with('/v2/accounts/self') do
         raw_response = double('Faraday::Response')
         raw_response.stub(:body) { '{ "ohai": "thar" }' }
         raw_response.stub(:status) { 200 }

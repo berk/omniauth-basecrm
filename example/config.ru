@@ -1,13 +1,13 @@
 require 'bundler/setup'
 require 'sinatra/base'
-require 'omniauth-translationexchange'
+require 'omniauth-basecrm'
 
 SCOPE = 'email'
 
 class App < Sinatra::Base
 
   get '/' do
-    redirect '/auth/translationexchange'
+    redirect '/auth/basecrm'
   end
 
   get '/auth/:provider/callback' do
@@ -25,7 +25,7 @@ end
 use Rack::Session::Cookie
 
 use OmniAuth::Builder do
-  provider :base_crm, ENV['APP_ID'], ENV['APP_SECRET'], :scope => SCOPE
+  provider :basecrm, ENV['APP_ID'], ENV['APP_SECRET'], :scope => SCOPE
 end
 
 run App.new

@@ -1,4 +1,7 @@
 # OmniAuth for BaseCrm
+[![Build Status](https://travis-ci.org/berk/omniauth-basecrm.png?branch=master)](https://travis-ci.org/berk/omniauth-basecrm)
+[![Coverage Status](https://coveralls.io/repos/berk/omniauth-basecrm/badge.png?branch=master)](https://coveralls.io/r/berk/omniauth-basecrm?branch=master)
+[![Gem Version](https://badge.fury.io/rb/omniauth-basecrm.svg)](http://badge.fury.io/rb/omniauth-basecrm)
 
 BaseCrm OAuth2 Strategy for OmniAuth 1.0.
 

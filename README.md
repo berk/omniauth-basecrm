@@ -4,7 +4,7 @@ BaseCrm OAuth2 Strategy for OmniAuth 1.0.
 
 Supports the OAuth 2.0 server-side. Read the BaseCrm docs for more details: 
 
-http://developers.basecrm.com/docs/methods/oauth2/oauth2-overview
+https://developers.getbase.com/docs/rest/articles/oauth2/introduction
 
 ## Installing
 

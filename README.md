@@ -34,11 +34,11 @@ You can configure several options, which you pass in to the `provider` method vi
 
 * `scope`: A space-separated list of scopes you want to request from the user. See the BaseCrm docs for a full list of available permissions.
 
-For example, to request `content` permission:
+For example, to request `profile` permission:
  
 ```ruby
 Rails.application.config.middleware.use OmniAuth::Builder do
-  provider :basecrm, ENV['BASECRM_CLIENT_ID'], ENV['BASECRM_SECRET'], :scope => 'content'
+  provider :basecrm, ENV['BASECRM_CLIENT_ID'], ENV['BASECRM_SECRET'], :scope => 'profile'
 end
 ```
 

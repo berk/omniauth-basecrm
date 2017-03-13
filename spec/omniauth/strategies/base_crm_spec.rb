@@ -34,14 +34,6 @@ describe OmniAuth::Strategies::BaseCrm do
     end
   end
 
-  describe '#authorize_params' do
-    it 'includes state parameter from request when present' do
-      @request.stub(:params) { { 'state' => 'some_state' } }
-      subject.authorize_params.should be_a(Hash)
-      subject.authorize_params[:state].should eq('some_state')
-    end
-  end
-  
   describe '#uid' do
     before :each do
       subject.stub(:raw_info) { { 'id' => '123' } }
@@ -86,7 +78,7 @@ describe OmniAuth::Strategies::BaseCrm do
     it 'returns a Hash' do
       @access_token.stub(:get).with('/v2/accounts/self') do
         raw_response = double('Faraday::Response')
-        raw_response.stub(:body) { '{ "ohai": "thar" }' }
+        raw_response.stub(:body) { '{"data": { "ohai": "thar" }}' }
         raw_response.stub(:status) { 200 }
         raw_response.stub(:headers) { { 'Content-Type' => 'application/json' } }
         OAuth2::Response.new(raw_response)
